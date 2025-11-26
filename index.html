@@ -1,11 +1,316 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Harish A • Portfolio</title>
+  <meta name="description" content="Portfolio of Harish A — Developer, Designer & Problem Solver" />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724; /* deep navy */
+      --card: rgba(255,255,255,0.06);
+      --accent1: #6EE7B7; /* mint */
+      --accent2: #60A5FA; /* sky */
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.02);
+      --muted: rgba(255,255,255,0.7);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:'Inter',system-ui,-apple-system; background: radial-gradient(1200px 600px at 10% 10%, rgba(96,165,250,0.06), transparent), radial-gradient(900px 500px at 90% 90%, rgba(110,231,183,0.04), transparent), var(--bg); color:#E6EEF5}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    /* Page wrapper */
+    .container{max-width:1100px;margin:48px auto;padding:28px}
+
+    /* header */
+    header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px;border-radius:14px;background:linear-gradient(180deg,var(--glass),transparent);backdrop-filter: blur(6px);box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo .mark{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:grid;place-items:center;font-weight:800;color:#05233E}
+    nav{display:flex;gap:16px;align-items:center}
+    .btn{padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent2),var(--accent1));color:#05233E;font-weight:700;box-shadow:0 6px 20px rgba(96,165,250,0.12);border:none;cursor:pointer}
+    .ghost{padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06)}
+
+    /* hero */
+    .hero{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:center;margin-top:28px}
+    .hero-left{padding:22px}
+    h1{font-size:2.2rem;margin:0 0 8px;line-height:1.05}
+    .title-acc{background:linear-gradient(90deg,var(--accent2),var(--accent1));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .tagline{color:var(--muted);margin-bottom:16px}
+    .actions{display:flex;gap:12px}
+
+    /* card */
+    .card{background:linear-gradient(180deg,var(--card),transparent);border-radius:16px;padding:18px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+
+    /* hero-right profile */
+    .profile{width:100%;height:100%;display:flex;flex-direction:column;gap:14px;align-items:center;justify-content:center;padding:18px;border-radius:12px;background:linear-gradient(180deg,var(--glass-2),transparent);border:1px solid rgba(255,255,255,0.02)}
+    .avatar{width:180px;height:180px;border-radius:20px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:grid;place-items:center;font-size:3rem;font-weight:800;color:#05233E}
+    .profile p{color:var(--muted);text-align:center}
+
+    /* section */
+    section{margin-top:26px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .skills{display:flex;flex-direction:column;gap:8px}
+    .skill{display:flex;justify-content:space-between;align-items:center}
+    .meter{height:10px;border-radius:999px;background:rgba(255,255,255,0.06);overflow:hidden}
+    .meter > span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent2),var(--accent1));transform-origin:left}
+
+    /* Projects */
+    .projects-list{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .project{padding:16px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.02);cursor:pointer;transition:transform .35s cubic-bezier(.2,.9,.2,1)}
+    .project:hover{transform:translateY(-8px)}
+    .project .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .pill{font-size:12px;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03)}
+
+    /* contact */
+    .contact-form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .input,textarea{padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    textarea{grid-column:span 2;min-height:110px}
+
+    footer{margin-top:40px;padding:20px;border-radius:12px;background:linear-gradient(180deg,var(--glass),transparent);display:flex;justify-content:space-between;align-items:center}
+
+    /* small screens */
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr;}
+      .grid-3{grid-template-columns:1fr}
+      .projects-list{grid-template-columns:1fr}
+      .contact-form{grid-template-columns:1fr}
+      .avatar{width:140px;height:140px}
+    }
+
+    /* animations & reveals */
+    .reveal{opacity:0;transform:translateY(18px);transition:all .8s cubic-bezier(.2,.9,.2,1)}
+    .reveal.show{opacity:1;transform:none}
+
+    /* typing */
+    .typing{color:var(--muted);font-weight:600}
+
+    /* floating background shapes */
+    .bg-dot{position:fixed;width:260px;height:260px;border-radius:50%;filter:blur(40px);opacity:0.12;z-index:0}
+    .bg-dot.a{right:-60px;top:-60px;background:linear-gradient(135deg,var(--accent2),transparent)}
+    .bg-dot.b{left:-80px;bottom:-120px;background:linear-gradient(135deg,var(--accent1),transparent)}
+
+    /* subtle floating animation */
+    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-18px)}100%{transform:translateY(0)}}
+    .float{animation:floaty 6s ease-in-out infinite}
+
+    /* project modal */
+    .modal{position:fixed;inset:0;display:grid;place-items:center;background:rgba(2,6,23,0.6);z-index:50;opacity:0;pointer-events:none;transition:opacity .2s}
+    .modal.active{opacity:1;pointer-events:all}
+    .modal-card{width:min(900px,92%);background:linear-gradient(180deg,#0b1220,rgba(255,255,255,0.02));padding:22px;border-radius:14px}
+
+    /* little helper */
+    .muted{color:var(--muted)}
+  </style>
 </head>
 <body>
-    <h1>Hello World..</h1>
+  <div class="bg-dot a float" aria-hidden></div>
+  <div class="bg-dot b float" aria-hidden></div>
+
+  <div class="container">
+    <header class="reveal" id="header">
+      <div class="logo">
+        <div class="mark">HA</div>
+        <div>
+          <div style="font-weight:700">Harish A</div>
+          <div style="font-size:12px;color:var(--muted)">Developer • Designer • Problem Solver</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#projects" class="ghost">Projects</a>
+        <a href="#skills" class="ghost">Skills</a>
+        <a href="#contact" class="ghost">Contact</a>
+        <button class="btn" id="downloadBtn">Download CV</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-left">
+          <div class="card reveal" style="--delay:0ms">
+            <h1>Hi, I'm <span class="title-acc">Harish</span> — building delightful apps &amp; reliable systems.</h1>
+            <div class="tagline">I focus on Flutter apps, full-stack web, and intuitive UX. I enjoy turning ideas into polished products.</div>
+            <div class="typing" id="typing"></div>
+            <div class="actions" style="margin-top:16px">
+              <a class="btn" href="#projects">See my work</a>
+              <a class="ghost" href="#contact">Let's talk</a>
+            </div>
+          </div>
+
+          <div class="grid-3" style="margin-top:16px">
+            <div class="card reveal">
+              <h3 style="margin:0">Experience</h3>
+              <p class="muted" style="margin-top:8px">3+ years building mobile & web apps. Team player & fast learner.</p>
+            </div>
+            <div class="card reveal">
+              <h3 style="margin:0">Open Source</h3>
+              <p class="muted" style="margin-top:8px">Contributed to libraries and sample apps on GitHub.</p>
+            </div>
+            <div class="card reveal">
+              <h3 style="margin:0">Hackathons</h3>
+              <p class="muted" style="margin-top:8px">Regular participant — quick prototyping & product-first mindset.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="profile reveal">
+          <div class="avatar">HA</div>
+          <div>
+            <h3 style="margin:6px 0 0">Harish A</h3>
+            <p class="muted">3rd year CSE • Passionate about Flutter, AI & system design</p>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:6px">
+            <a class="ghost" href="#contact">Hire me</a>
+            <a class="ghost" href="#projects">Projects</a>
+          </div>
+        </aside>
+      </section>
+
+      <section id="skills" class="reveal">
+        <h2>Skills</h2>
+        <div style="margin-top:12px" class="card">
+          <div class="skills">
+            <div class="skill"><div>Flutter & Dart</div><div style="width:30%">90%</div></div>
+            <div class="meter" aria-hidden><span style="width:90%"></span></div>
+
+            <div class="skill"><div>JavaScript & Web</div><div>82%</div></div>
+            <div class="meter" aria-hidden><span style="width:82%"></span></div>
+
+            <div class="skill"><div>Firebase & Backend</div><div>76%</div></div>
+            <div class="meter" aria-hidden><span style="width:76%"></span></div>
+
+            <div class="skill"><div>UI/UX & Prototyping</div><div>84%</div></div>
+            <div class="meter" aria-hidden><span style="width:84%"></span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="reveal">
+        <h2>Selected Projects</h2>
+        <div style="margin-top:12px;display:flex;gap:12px;align-items:center">
+          <div class="card" style="padding:8px">Filter:</div>
+          <div style="display:flex;gap:8px">
+            <button class="ghost" data-filter="all">All</button>
+            <button class="ghost" data-filter="mobile">Mobile</button>
+            <button class="ghost" data-filter="web">Web</button>
+            <button class="ghost" data-filter="ml">ML/AI</button>
+          </div>
+        </div>
+
+        <div style="margin-top:12px" class="projects-list">
+          <article class="project card" data-type="mobile" tabindex="0">
+            <h3>Farmezy — Farming App</h3>
+            <p class="muted">Marketplace for farmers, workers & equipment rentals. Flutter & Firebase.</p>
+            <div class="tags"><span class="pill">Flutter</span><span class="pill">Firebase</span></div>
+          </article>
+
+          <article class="project card" data-type="web" tabindex="0">
+            <h3>EzyConnect</h3>
+            <p class="muted">Secure decentralized communication prototype. GNU Net & XMPP tools.</p>
+            <div class="tags"><span class="pill">Security</span><span class="pill">Networking</span></div>
+          </article>
+
+          <article class="project card" data-type="ml" tabindex="0">
+            <h3>Smart News-Chatbot</h3>
+            <p class="muted">Daily digest news bot built in a 5-hour hackathon with automation features.</p>
+            <div class="tags"><span class="pill">Python</span><span class="pill">NLP</span></div>
+          </article>
+
+          <article class="project card" data-type="mobile" tabindex="0">
+            <h3>VR Launcher</h3>
+            <p class="muted">Flutter app that launches VR experiences on Meta Quest / Android.</p>
+            <div class="tags"><span class="pill">Android</span><span class="pill">VR</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="reveal">
+        <h2>Contact</h2>
+        <div style="margin-top:12px" class="card">
+          <form class="contact-form" id="contactForm">
+            <input class="input" type="text" name="name" placeholder="Your name" required>
+            <input class="input" type="email" name="email" placeholder="Email" required>
+            <textarea name="message" placeholder="Message" required></textarea>
+            <button class="btn" type="submit">Send message</button>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="reveal">
+      <div class="muted">© " + new Date().getFullYear() + " Harish A — Built with ♥</div>
+      <div style="display:flex;gap:12px"><a class="ghost" href="#">GitHub</a><a class="ghost" href="#">LinkedIn</a></div>
+    </footer>
+  </div>
+
+  <!-- modal -->
+  <div class="modal" id="modal" aria-hidden>
+    <div class="modal-card card" role="dialog" aria-modal="true">
+      <button class="ghost" id="closeModal">Close</button>
+      <div id="modalContent" style="margin-top:12px"></div>
+    </div>
+  </div>
+
+  <script>
+    // Typing effect
+    const typingEl = document.getElementById('typing');
+    const phrases = ['Flutter apps • Web interfaces • Clean UX', 'Hackathons • Open-source • Fast prototyping', 'I build, learn and iterate.'];
+    let pIdx=0, ch=0, forward=true;
+    function tick(){
+      const txt = phrases[pIdx];
+      if(forward){
+        ch++;
+        if(ch>txt.length){forward=false;setTimeout(tick,900);return}
+      } else {ch--; if(ch===0){forward=true;pIdx=(pIdx+1)%phrases.length}}
+      typingEl.textContent = txt.slice(0,ch)+'▌';
+      setTimeout(tick, forward?60:30);
+    }
+    tick();
+
+    // reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    function showOnScroll(){
+      reveals.forEach((r,i)=>{
+        const rect = r.getBoundingClientRect();
+        if(rect.top < window.innerHeight - 60){r.classList.add('show')}
+      })
+    }
+    window.addEventListener('scroll', showOnScroll); showOnScroll();
+
+    // projects filter + modal
+    const filterBtns = document.querySelectorAll('[data-filter]');
+    const projects = document.querySelectorAll('.project');
+    filterBtns.forEach(b=>b.addEventListener('click',()=>{
+      const f = b.getAttribute('data-filter');
+      projects.forEach(p=>{p.style.display=(f==='all'||p.dataset.type===f)?'block':'none'})
+    }));
+
+    projects.forEach(p=>p.addEventListener('click',()=>openModal(p)));
+    function openModal(p){
+      const modal = document.getElementById('modal');
+      const content = document.getElementById('modalContent');
+      content.innerHTML = `<h3>${p.querySelector('h3').textContent}</h3><p class="muted">${p.querySelector('p').textContent}</p><p style=\"margin-top:12px\">More details, links and screenshots go here. Replace this placeholder with your project's description, tech stack, and repository link.</p>`;
+      modal.classList.add('active');modal.removeAttribute('aria-hidden');
+    }
+    document.getElementById('closeModal').addEventListener('click',()=>{document.getElementById('modal').classList.remove('active');document.getElementById('modal').setAttribute('aria-hidden','');});
+
+    // contact handler (local only)
+    document.getElementById('contactForm').addEventListener('submit', (e)=>{
+      e.preventDefault(); alert('Thanks! Message captured locally — wire up your backend to receive messages.'); e.target.reset();
+    });
+
+    // fake CV download
+    document.getElementById('downloadBtn').addEventListener('click', ()=>{
+      const blob = new Blob([`Harish A\nDeveloper • Designer\nEmail: your.email@example.com\n\nSummary:\n- Flutter & Web developer.\n`], {type:'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='Harish_CV.txt'; a.click(); URL.revokeObjectURL(url);
+    });
+
+    // accessibility: close modal on esc
+    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ document.getElementById('modal').classList.remove('active'); }});
+  </script>
 </body>
 </html>
